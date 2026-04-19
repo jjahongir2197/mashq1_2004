@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            line-height: 1.6;
+        }
+        .success { 
+            color: green; 
+            background: #e8f5e9; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid green;
+        }
+        .error { 
+            color: red; 
+            background: #ffebee; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid red;
+        }
+        input, textarea {
+            width: 100%;
+            max-width: 500px;
+            padding: 8px;
+            margin: 8px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Kontakt ma'lumotlarini kiriting</h2>
+
+    {% if res is not none %}
+        {% if res|length == 1 and res[0] == "Ma'lumotlar noto'g'ri kiritildi" %}
+            <p class="error">❌ {{ res[0] }}</p>
+        {% else %}
+            <div class="success">
+                <h3>✅ Muvaffaqiyatli yuborildi!</h3>
+                <p><strong>Ism:</strong> {{ res[0] }}</p>
+                <p><strong>Email:</strong> {{ res[1] }}</p>
+                <p><strong>Xabar:</strong> {{ res[2] | nl2br }}</p>
+            </div>
+        {% endif %}
+        <hr>
+    {% endif %}
+
+    <form method="POST">
+        <input type="text" name="ism" placeholder="Ismingiz" required><br><br>
+        <input type="email" name="email" placeholder="Email manzilingiz" required><br><br>
+        <textarea name="xabar" placeholder="Xabaringiz" rows="5" required></textarea><br><br>
+        <button type="submit">Yuborish</button>
+    </form>
+</body>
+</html>
